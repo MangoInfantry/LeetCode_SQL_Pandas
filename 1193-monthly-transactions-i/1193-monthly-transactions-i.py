@@ -6,7 +6,6 @@ import numpy as np
 
 def monthly_transactions(transactions):
     transactions['month'] = transactions['trans_date'].dt.strftime('%Y-%m')
-    transactions['country'].fillna('null',inplace=True)
     transactions['approved'] = np.where(transactions['state'] == 'approved',transactions['amount'],nan)
     
     trans_count = transactions.groupby(['month', 'country'])['state'].count()
