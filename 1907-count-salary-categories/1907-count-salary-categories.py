@@ -9,11 +9,8 @@
 import pandas as pd
 
 def count_salary_categories(accounts):
-    low_salary =  len(accounts[accounts['income']<20000])
-    average_salary = len(accounts[(accounts['income']>=20000) & (accounts['income']<=50000)])
-    high_salary = len(accounts[accounts['income']>50000])
-    data = pd.DataFrame({'category':['High Salary', 'Average Salary', 'Low Salary'],
-                         'accounts_count': [high_salary, average_salary, low_salary]})
-    return data
-
-    
+    low_income = len(accounts[accounts['income']<20000].drop_duplicates())
+    average_income = len(accounts[(accounts['income']>=20000) & (accounts['income']<=50000)].drop_duplicates())
+    high_income = len(accounts[accounts['income']>50000].drop_duplicates())
+    result = pd.DataFrame({'category':['Low Salary','Average Salary', 'High Salary'], 'accounts_count':[low_income, average_income, high_income]})
+    return result 
