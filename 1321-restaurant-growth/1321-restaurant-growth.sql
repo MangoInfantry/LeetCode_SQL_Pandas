@@ -1,9 +1,9 @@
 # Write your MySQL query statement below
 # 7일 동안 고객이 결제한 금액의 이동 평균을 계산
 # 평균 금액은 소수점 둘째 자리에서 반올림
-# visited_on을 기준으로 lead(6)을 해서 7일치의 데이터를 가지고 온다.
-# 데이터를 가지고 오면 그 구간에 있는 데이터들을 
-# 날짜를 기준으로 나열해서 rank가 7인 것까지 추출한 뒤, 합계를 구한다 
+# cte에서 sum(amount)를 partition by를 날짜를 기준으로 해서 합을 구한다 
+# cte 빆에서 합과 평균을 구하는데 윈도우 함수에서 현재 값과 6행 전까지의 값들을 가져와서 계산하도록 한다
+# 이동 평균도 그렇게 계산하고 7로 나눈다  
 
 with cte as (
     select distinct visited_on,
