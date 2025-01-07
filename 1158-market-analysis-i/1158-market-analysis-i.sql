@@ -4,14 +4,14 @@
 # item_id은 user와 order가 조인한 후 조인
 
 with cte as (
-    select user_id as buyer_id, join_date, order_date
-    from users as u 
+    select user_id, join_date, item_id, order_date
+    from users as u
     left join orders as o
-    on u.user_id = o.buyer_id
+    on u.user_id = o.buyer_id 
 )
 
-select buyer_id,
+select user_id as buyer_id, 
        join_date,
-       sum(case when year(order_date) = 2019 then 1 else 0 end) as orders_in_2019
+       sum(case when left(order_date,4)='2019' then 1 else 0 end) as orders_in_2019
 from cte
 group by buyer_id
