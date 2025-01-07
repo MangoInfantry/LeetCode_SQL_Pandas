@@ -4,7 +4,7 @@
 # item_id은 user와 order가 조인한 후 조인
 
 with cte as (
-    select buyer_id, join_date, order_date
+    select user_id as buyer_id, join_date, order_date
     from users as u 
     left join orders as o
     on u.user_id = o.buyer_id
