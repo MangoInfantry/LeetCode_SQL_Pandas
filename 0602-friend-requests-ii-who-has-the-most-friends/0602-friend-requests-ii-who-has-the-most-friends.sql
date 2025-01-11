@@ -2,8 +2,8 @@
 # 가장 많은 친구를 가진 사람과 가장 많은 친구 수를 찾는 솔루션을 작성합니다.
 # cte1 테이블: requester_id의 개수를 센다
 # cte2 테이블: accepter_id의 개수를 센다
-# cte3 테이블: cte1과 cte2를 조인한다
-# cte4 테이블: re_count와 ac_count를 더해서 num을 만든다
+# cte3 테이블: cte1과 cte2를 union all한다
+# cte4 테이블:group by를 해서 num을 만든다
 # cte밖: cte4에서 order by를 이용하여 num을 정렬한다음, limit 1만 출력한다. 
 
 with cte1 as (
