@@ -1,32 +1,24 @@
-# Write your MySQL query statement below
-# 가장 많은 친구를 가진 사람과 가장 많은 친구 수를 찾는 솔루션을 작성합니다.
-# cte1 테이블: requester_id의 개수를 센다
-# cte2 테이블: accepter_id의 개수를 센다
-# cte3 테이블: cte1과 cte2를 union all한다
-# cte4 테이블:group by를 해서 num을 만든다
-# cte밖: cte4에서 order by를 이용하여 num을 정렬한다음, limit 1만 출력한다. 
+-- 가장 많은 친구를 가진 사람과 가장 많은 친구 수를 찾는 솔루션을 작성합니다.
+-- 테스트 케이스는 한 사람만 가장 많은 친구를 보유하도록 생성됩니다.
+-- 결과 형식은 다음 예제와 같습니다.
+-- cte안에 union을 써서 requester_id와 accepter_id를 병합
+-- union한 후, cte2에서 group by를 이용하여 id와 id 카운트를 센 후, cte2 밖에서 order by를 이용해 내림차순으로 정렬, limit 1을 이용하여 처음 id만 출력 
 
-with cte1 as (
-    select requester_id as id, count(requester_id) as counts
-    from RequestAccepted
-    group by requester_id
-), cte2 as (
-    select accepter_id as id, count(accepter_id) as counts
-    from RequestAccepted
-    group by accepter_id
-), cte3 as (
-    select cte1.id, counts
-    from cte1
+with cte as (
+    select requester_id as id
+    from requestaccepted
     union all 
-    select cte2.id, counts
-    from cte2
-), cte4 as (
-    select id, sum(counts) as num
-    from cte3
+    select accepter_id as id
+    from requestaccepted
+), cte2 as (
+    select id, count(id) as num
+    from cte 
     group by id
 )
 
-select id, num 
-from cte4
+select id, num
+from cte2
 order by num desc 
 limit 1
+
+ 
