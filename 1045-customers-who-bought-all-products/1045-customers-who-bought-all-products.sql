@@ -5,7 +5,7 @@
 
 # cte에서 group by를 이용해 customer_id 별 product key의 갯수를 세준다. 
 # cte2에서 product 테이블에서 product_key를 이용해 count를 세줘서 cte2를 만든다. 
-# 서브 쿼리를 이용하여 cte2에 있는 cnt와 cte에 있는 cnt와 같을 경우의 customer_id를 가져온다.  
+# 조인을 이용하여 cte2에 있는 cnt와 cte에 있는 cnt와 같을 경우의 customer_id를 가져온다.  
 with cte as (
     select distinct customer_id, count(distinct product_key) as cnt
     from customer
